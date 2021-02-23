@@ -575,11 +575,15 @@
 		/**
 		 * @param  DataSourceResult
 		 * @param  int
-		 * @param  int
-		 * @return Paginator
+		 * @param  int|NULL $itemsOnPage
+		 * @return Paginator|NULL
 		 */
 		private function createPaginator(DataSourceResult $result, $page, $itemsOnPage)
 		{
+			if ($itemsOnPage === NULL) {
+				return NULL;
+			}
+
 			$paginator = new Paginator;
 			$paginator->setPage($page);
 			$paginator->setItemCount($result->getCount());
@@ -692,7 +696,7 @@
 
 
 		/**
-		 * @return int
+		 * @return int|NULL
 		 */
 		private function getItemsOnPage()
 		{
