@@ -9,6 +9,8 @@
 
 	class DataGrid extends \Nette\Application\UI\Control
 	{
+		const TEMPLATE_DEFAULT = 'default';
+
 		/** @var array  @persistent */
 		public $filter = array();
 
@@ -54,10 +56,14 @@
 		/** @var string */
 		private $templateFile;
 
+		/** @var array */
+		private $templateParameters;
+
 
 		public function __construct(IDataSource $dataSource)
 		{
 			$this->dataSource = $dataSource;
+			$this->setTemplateFile(self::TEMPLATE_DEFAULT);
 		}
 
 
@@ -65,10 +71,16 @@
 		 * @param  string  file path or template name
 		 * @return self
 		 */
-		public function setTemplateFile($file)
+		public function setTemplateFile($file, array $parameters = [])
 		{
 			Assert::string($file);
+
+			if ($file === self::TEMPLATE_DEFAULT) {
+				$file = __DIR__ . '/templates/' . $file . '/@grid.latte';
+			}
+
 			$this->templateFile = $file;
+			$this->templateParameters = $parameters;
 			return $this;
 		}
 
@@ -479,6 +491,7 @@
 			Assert::string($this->templateFile, 'Parameter $templateFile is not set, use $grid->setTemplateFile().');
 			$result = $this->getDataResult();
 			$template = $this->createTemplate();
+			$template->setParameters($this->templateParameters);
 			$template->grid = $this;
 			$template->rows = $result->getRows();
 			$template->paginator = $this->createPaginator($result, $this->page, $this->getItemsOnPage());

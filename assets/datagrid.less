@@ -1,0 +1,58 @@
+
+.datagrid {
+	margin-bottom: 1em;
+	overflow: auto;
+}
+
+.datagrid__sort {
+	display: inline-block;
+	color: gray;
+	font-size: 87.5%;
+}
+
+.datagrid__filters {
+	font-size: 87.5%;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.datagrid__filter-input {
+	margin-bottom: 1em;
+	display: flex;
+}
+
+.datagrid__filter-label {
+	font-weight: bold;
+	flex: 1;
+	max-width: 10em;
+	padding: 0.25em 0.5em;
+	vertical-align: middle;
+}
+
+.datagrid__filter-control {
+	flex: 2;
+}
+
+.datagrid__filter-buttons {
+	margin-bottom: 1em;
+	text-align: right;
+}
+
+.datagrid__footer {
+	margin-bottom: 1em;
+	color: gray;
+	font-size: 87.5%;
+	text-align: right;
+}
+
+.datagrid .table {
+	margin-bottom: 0;
+}
+
+@media only screen and (min-width: 50em) {
+	.datagrid__filter-inputs {
+		columns: 2;
+		margin-bottom: 1em;
+	}
+}

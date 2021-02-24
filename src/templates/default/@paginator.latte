@@ -1,0 +1,17 @@
+
+{var $steps = Inteve\Utils\PaginatorHelper::calculateSteps($paginator)}
+
+<div class="paginator">
+	<a n:if="!$paginator->first" n:href="this, page => ($paginator->page - 1)" class="button button--small">« předchozí</a>
+
+	{foreach $steps as $step}
+		{if $step === $paginator->page}
+			<b class="button button--small button--success">{$step}</b>
+		{else}
+			<a n:href="this, page => $step" class="button button--small">{$step}</a>
+		{/if}
+		{if $iterator->nextValue > $step + 1}<span>…</span>{/if}
+	{/foreach}
+
+	<a n:if="!$paginator->last" n:href="this, page => ($paginator->page + 1)" class="button button--small">další »</a>
+</div>

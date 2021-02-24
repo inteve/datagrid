@@ -1,0 +1,106 @@
+{*
+ * @var \Inteve\DataGrid\DataGrid $grid
+ * @var \Nette\Utils\Paginator|NULL  $paginator
+ * @var array  $rows
+ * @var \Inteve\DataGrid\IColumn[]  $columns
+ * @var \Inteve\DataGrid\IFilter[]  $filters
+ * @var \Inteve\DataGrid\Action[]  $actions
+ * @var \Inteve\DataGrid\BulkAction[]  $bulkActions
+ * TODO
+ *}
+
+{var $hasBulkActions = !empty($bulkActions)}
+
+<div n:if="!empty($filters)" class="datagrid__filters">
+	<form class="form" n:name="filters">
+		<div class="datagrid__filter-inputs">
+			<div n:foreach="$form[filters]->controls as $input" n:class="datagrid__filter-input, $input->required ? datagrid__filter-input--required">
+				{php $input->setAttribute('class', 'form--wide')}
+				<div class="datagrid__filter-label">{label $input /}</div>
+				<div class="datagrid__filter-control">{input $input} <span class=error n:ifcontent>{$input->error}</span></div>
+			</div>
+		</div>
+
+		<div class="datagrid__filter-buttons">
+			{input apply, class => 'button'}
+			<a n:href="resetFilter!">Zrušit</a>
+		</div>
+	</form>
+</div>
+
+<form n:name="bulkAction" class="datagrid">
+	<div class="toolbar" n:if="$hasBulkActions">
+		{foreach $bulkActions as $bulkAction}
+			<input type="submit" name="action[{$bulkAction->getName()}]" value="{$bulkAction->getLabel()}" n:class="button, $bulkAction->getOption('type') === 'delete' ? button--danger">
+		{/foreach}
+	</div>
+
+	<table class="table">
+		<thead class="table__header">
+			<tr class="table__row">
+				<th n:if="$hasBulkActions" class="table__cell table__cell--header">
+					<input type="checkbox" class="form-check-all" data-check-all-inputs="selected[]">
+				</th>
+
+				{foreach $columns as $column}
+					{var $columnAttrs = $column->getAttributes([class => ['table__cell', 'table__cell--header']])}
+					<th n:attr="$columnAttrs">
+						{if $column->isSortable()}
+							{var $sort = $column->getSort()}
+							<a href="{$grid->getSortUrl($column)}"><span>{$column->getLabel()}</span></a> <span n:class="datagrid__sort, $sort === 'ASC' ? datagrid__sort--asc, $sort === 'DESC' ? datagrid__sort--desc">{if $sort === 'ASC'}&#9650;{/if}{if $sort === 'DESC'}&#9660;{/if}</span>
+						{else}
+							{$column->getLabel()}
+						{/if}
+					</th>
+				{/foreach}
+
+				{if !empty($actions)}
+					<th class="table__cell table__cell--header text--right">Akce</th>
+				{/if}
+			</tr>
+		</thead>
+
+		<tbody class="table__body">
+			<tr n:foreach="$rows as $row" n:attr="(expand) (array) $grid->getRowAttributes($row, [class => 'table__row'])">
+				<td n:if="$hasBulkActions" class="text--center table__cell">
+					<input type="checkbox" name="selected[]" value="{$grid->getRowId($row)}">
+				</td>
+
+				{foreach $columns as $column}
+					<td class="table__cell">
+						{$column->formatValue($row)}
+					</td>
+				{/foreach}
+
+				<td class="table__cell text--right" n:if="!empty($actions)">
+					{foreach $actions as $actionName => $action}
+						{continueIf $action->isDisabled($row)}
+						{var $actionIcon = $action->getIcon()}
+
+						<a href="{$action->getUrl($row)}" class="button button--small" n:if="!$action->isOfType('delete')">{$action->getLabel()}</a>
+
+						<a href="{$action->getUrl($row)}" onclick="return window.confirm('Opravdu smazat?')" class="button button--small button--danger" n:if="$action->isOfType('delete')">{$action->getLabel()}</a>
+					{/foreach}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+
+<div n:if="!$iterations">
+	<p>Nenalezeny žádné vyhovující záznamy.</p>
+</div>
+
+{if $iterations}
+	<div class="datagrid__footer text--muted">
+		<form class="form" n:name="viewOptions" onchange="this.submit()">
+			{if isset($form[perPage])}
+			{label perPage /}: <select n:name="perPage"></select>
+			{/if}
+		</form>
+	</div>
+
+	{if $paginator !== NULL}
+		{include @paginator.latte, paginator => $paginator}
+	{/if}
+{/if}

@@ -21,5 +21,11 @@
 	},
 	"require-dev": {
 		"nette/tester": "^2.0"
+	},
+	"extra": {
+		"assets-files": "assets/",
+		"cleaner-ignore": [
+			"assets"
+		]
 	}
 }
