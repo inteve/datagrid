@@ -30,6 +30,9 @@
 		/** @var callback */
 		private $disabled;
 
+		/** @var string */
+		private $type;
+
 
 		/**
 		 * @param  string
@@ -45,6 +48,7 @@
 			$this->label = $label;
 			$this->linkFactory = $linkFactory;
 			$this->dataSource = $dataSource;
+			$this->type = $name === 'delete' ? 'delete' : 'default';
 		}
 
 
@@ -131,5 +135,26 @@
 			}
 
 			return call_user_func($this->disabled, $row);
+		}
+
+
+		/**
+		 * @param  string
+		 * @return self
+		 */
+		public function setType($type)
+		{
+			$this->type = $type;
+			return $this;
+		}
+
+
+		/**
+		 * @param  string
+		 * @return bool
+		 */
+		public function isOfType($type)
+		{
+			return $this->type === $type;
 		}
 	}
