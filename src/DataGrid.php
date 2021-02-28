@@ -116,20 +116,6 @@
 		}
 
 
-		// /**
-		//  * TODO
-		//  * @param  array  [filter => (mixed) $value]
-		//  * @return self
-		//  */
-		// public function setDefaultFilters(array $filters)
-		// {
-		// 	foreach ($filters as $filter => $value) {
-		// 		$this->getFilter($filter)->setDefaultValue($value);
-		// 	}
-		// 	return $this;
-		// }
-
-
 		/**
 		 * @param  array  [column => (string) ASC|DESC]
 		 * @return self
