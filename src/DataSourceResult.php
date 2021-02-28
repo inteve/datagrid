@@ -13,17 +13,17 @@
 		private $rows;
 
 		/** @var int */
-		private $count;
+		private $totalCount;
 
 
 		/**
 		 * @param  array
 		 * @param  int
 		 */
-		public function __construct(array $rows, $count)
+		public function __construct(array $rows, $totalCount)
 		{
 			$this->rows = $rows;
-			$this->count = $count;
+			$this->totalCount = $totalCount;
 		}
 
 
@@ -39,8 +39,8 @@
 		/**
 		 * @return int
 		 */
-		public function getCount()
+		public function getTotalCount()
 		{
-			return $this->count;
+			return $this->totalCount;
 		}
 	}

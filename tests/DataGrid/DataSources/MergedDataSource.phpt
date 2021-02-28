@@ -47,7 +47,7 @@ test(function () use ($dataSource) { // all
 		['id' => 'C-1'],
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 });
 
 
@@ -58,7 +58,7 @@ test(function () use ($dataSource) { // only limit
 		['id' => 'A-2'],
 		['id' => 'A-3'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(NULL, 6));
 	Assert::same([
@@ -69,7 +69,7 @@ test(function () use ($dataSource) { // only limit
 		['id' => 'A-5'],
 		['id' => 'B-1'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(NULL, 9));
 	Assert::same([
@@ -83,7 +83,7 @@ test(function () use ($dataSource) { // only limit
 		['id' => 'B-3'],
 		['id' => 'C-1'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(NULL, 20));
 	Assert::same([
@@ -98,7 +98,7 @@ test(function () use ($dataSource) { // only limit
 		['id' => 'C-1'],
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 });
 
 
@@ -113,7 +113,7 @@ test(function () use ($dataSource) { // only offset
 		['id' => 'C-1'],
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], new DataPaging(5, NULL));
 	Assert::same([
@@ -123,7 +123,7 @@ test(function () use ($dataSource) { // only offset
 		['id' => 'C-1'],
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], new DataPaging(6, NULL));
 	Assert::same([
@@ -132,13 +132,13 @@ test(function () use ($dataSource) { // only offset
 		['id' => 'C-1'],
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], new DataPaging(9, NULL));
 	Assert::same([
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 });
 
 
@@ -149,7 +149,7 @@ test(function () use ($dataSource) { // offset + limit
 		['id' => 'A-2'],
 		['id' => 'A-3'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(2, 3));
 	Assert::same([
@@ -157,7 +157,7 @@ test(function () use ($dataSource) { // offset + limit
 		['id' => 'A-5'],
 		['id' => 'B-1'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(3, 3));
 	Assert::same([
@@ -165,15 +165,15 @@ test(function () use ($dataSource) { // offset + limit
 		['id' => 'B-3'],
 		['id' => 'C-1'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(4, 3));
 	Assert::same([
 		['id' => 'C-2'],
 	], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 
 	$result = $dataSource->getData([], [], [], DataPaging::create(5, 3));
 	Assert::same([], $result->getRows());
-	Assert::same(10, $result->getCount());
+	Assert::same(10, $result->getTotalCount());
 });

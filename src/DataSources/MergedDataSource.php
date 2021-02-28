@@ -48,7 +48,7 @@
 
 				foreach ($this->dataSources as $dataSource) {
 					$result = $dataSource->getData($columns, $filters, $sorts, $paging);
-					$count += $result->getCount();
+					$count += $result->getTotalCount();
 
 					foreach ($result->getRows() as $row) {
 						$rows[] = $row;
@@ -64,7 +64,7 @@
 
 				foreach ($this->dataSources as $dataSource) {
 					$result = $dataSource->getData($columns, $filters, $sorts, $paging);
-					$count += $result->getCount();
+					$count += $result->getTotalCount();
 					$dataSourceRows = $result->getRows();
 
 					foreach ($dataSourceRows as $row) {
@@ -84,9 +84,9 @@
 
 				foreach ($this->dataSources as $dataSource) {
 					$result = $dataSource->getData($columns, $filters, $sorts, new DataPaging($offset, NULL));
-					$count += $result->getCount();
+					$count += $result->getTotalCount();
 					$dataSourceRows = $result->getRows();
-					$offset = max(0, $offset - $result->getCount());
+					$offset = max(0, $offset - $result->getTotalCount());
 
 					foreach ($dataSourceRows as $row) {
 						$rows[] = $row;
@@ -104,14 +104,14 @@
 
 			foreach ($this->dataSources as $dataSource) {
 				$result = $dataSource->getData($columns, $filters, $sorts, new DataPaging($offset, $limit));
-				$count += $result->getCount();
+				$count += $result->getTotalCount();
 				$dataSourceRows = $result->getRows();
 
 				foreach ($dataSourceRows as $row) {
 					$rows[] = $row;
 				}
 
-				$offset = max(0, $offset - $result->getCount());
+				$offset = max(0, $offset - $result->getTotalCount());
 				$limit = max(0, $limit - count($dataSourceRows));
 			}
 

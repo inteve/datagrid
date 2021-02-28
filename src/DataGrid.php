@@ -586,7 +586,7 @@
 
 			$paginator = new Paginator;
 			$paginator->setPage($page);
-			$paginator->setItemCount($result->getCount());
+			$paginator->setItemCount($result->getTotalCount());
 			$paginator->setItemsPerPage($itemsOnPage);
 			return $paginator;
 		}
