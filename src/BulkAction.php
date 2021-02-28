@@ -39,11 +39,11 @@
 		{
 			Assert::string($name);
 			Assert::string($label);
-			Assert::in($emptySelection, array(
+			Assert::in($emptySelection, [
 				self::SELECT_NONE,
 				self::SELECT_PAGE,
 				self::SELECT_ALL,
-			));
+			]);
 			$this->name = $name;
 			$this->label = $label;
 			$this->callback = $callback;

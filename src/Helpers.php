@@ -46,7 +46,7 @@
 
 					} else {
 						if (!is_array($attributes[$attr])) {
-							$attributes[$attr] = array($attributes[$attr]);
+							$attributes[$attr] = [$attributes[$attr]];
 						}
 
 						if (is_array($value)) {

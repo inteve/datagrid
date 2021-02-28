@@ -19,7 +19,7 @@
 		/**
 		 * @param  string
 		 */
-		public function __construct($name, array $arguments = array())
+		public function __construct($name, array $arguments = [])
 		{
 			Assert::string($name);
 			$this->name = $name;

@@ -105,11 +105,11 @@
 		protected function applyCondition(\LeanMapperQuery\Query $query, $conditions)
 		{
 			if (!is_array($conditions)) {
-				$conditions = array($conditions);
+				$conditions = [$conditions];
 			}
 
-			$statements = array();
-			$values = array();
+			$statements = [];
+			$values = [];
 
 			foreach ($conditions as $condition) {
 				$statement = '@' . $condition->getField();
@@ -162,6 +162,6 @@
 			}
 
 			array_unshift($values, implode(' OR ', $statements));
-			call_user_func_array(array($query, 'where'), $values);
+			call_user_func_array([$query, 'where'], $values);
 		}
 	}

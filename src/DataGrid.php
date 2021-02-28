@@ -12,7 +12,7 @@
 		const TEMPLATE_DEFAULT = 'default';
 
 		/** @var array  @persistent */
-		public $filter = array();
+		public $filter = [];
 
 		/** @var string  @persistent */
 		public $sort = '';
@@ -33,22 +33,22 @@
 		private $perPageSteps = NULL;
 
 		/** @var array */
-		private $columns = array();
+		private $columns = [];
 
 		/** @var array */
-		private $filters = array();
+		private $filters = [];
 
 		/** @var array */
-		private $sorts = array();
+		private $sorts = [];
 
 		/** @var array */
-		private $actions = array();
+		private $actions = [];
 
 		/** @var BulkAction */
-		private $bulkActions = array();
+		private $bulkActions = [];
 
 		/** @var array|NULL */
-		private $defaultSort = array();
+		private $defaultSort = [];
 
 		/** @var callback|NULL */
 		private $rowAttributes;
@@ -100,7 +100,7 @@
 				$this->perPage = NULL;
 
 			} elseif ($changeable === TRUE) {
-				$this->perPageSteps = array(10, 20, 50, 100);
+				$this->perPageSteps = [10, 20, 50, 100];
 
 			} elseif (is_array($changeable)) {
 				$this->perPageSteps = $changeable;
@@ -136,7 +136,7 @@
 		 */
 		public function setDefaultSort(array $sorts)
 		{
-			$this->defaultSort = array();
+			$this->defaultSort = [];
 
 			foreach ($sorts as $name => $sorting) {
 				$column = $this->getColumn($name);
@@ -297,7 +297,7 @@
 
 		public function handleResetFilter()
 		{
-			$this->filter = array();
+			$this->filter = [];
 			$this->page = 1;
 			$this->redirect('this');
 		}
@@ -315,7 +315,7 @@
 			}
 
 			$form->addSubmit('apply', 'Hledat');
-			$form->onSuccess[] = array($this, 'processFilters');
+			$form->onSuccess[] = [$this, 'processFilters'];
 			return $form;
 		}
 
@@ -326,7 +326,7 @@
 		public function processFilters($form)
 		{
 			$values = $form->getValues();
-			$this->filter = array();
+			$this->filter = [];
 			$this->page = 1;
 
 			foreach ($values->filters as $name => $value) {
@@ -350,7 +350,7 @@
 			}
 
 			$form->addSubmit('show', 'Zobrazit');
-			$form->onSuccess[] = array($this, 'processViewOptions');
+			$form->onSuccess[] = [$this, 'processViewOptions'];
 			return $form;
 		}
 
@@ -378,7 +378,7 @@
 		public function createComponentBulkAction()
 		{
 			$form = new \Nette\Application\UI\Form;
-			$form->onSuccess[] = array($this, 'processBulkAction');
+			$form->onSuccess[] = [$this, 'processBulkAction'];
 			return $form;
 		}
 
@@ -428,7 +428,7 @@
 			parent::loadState($params);
 
 			// sorts
-			$this->sorts = array();
+			$this->sorts = [];
 
 			if (!is_string($this->sort)) {
 				$this->sort = '';
@@ -462,7 +462,7 @@
 
 			// filters
 			if (!is_array($this->filter)) {
-				$this->filter = array();
+				$this->filter = [];
 			}
 
 			$filters = $this->filter;
@@ -541,9 +541,9 @@
 			}
 
 			$sort = $column->getSort();
-			$params = array(
+			$params = [
 				'sort' => NULL,
-			);
+			];
 			$switch = NULL;
 
 			if ($sort === NULL) {
@@ -701,10 +701,10 @@
 			$parts = explode(':', $s, 2);
 
 			if (!isset($parts[1])) {
-				return array();
+				return [];
 			}
 
-			return array($parts[0] => $parts[1]);
+			return [$parts[0] => $parts[1]];
 		}
 
 

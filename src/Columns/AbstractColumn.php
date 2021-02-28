@@ -174,7 +174,7 @@
 		public function setSortable($sortable = TRUE)
 		{
 			if (!is_bool($sortable) && !is_array($sortable)) {
-				$sortable = array($sortable);
+				$sortable = [$sortable];
 			}
 			$this->sortable = $sortable;
 			return $this;
@@ -190,7 +190,7 @@
 				return FALSE;
 
 			} elseif ($this->sortable === TRUE) {
-				return array($this->getRowField());
+				return [$this->getRowField()];
 			}
 
 			return $this->sortable;

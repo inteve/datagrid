@@ -42,9 +42,9 @@
 				$target = '_blank';
 			}
 
-			return Html::el('a', array(
+			return Html::el('a', [
 				'href' => $url,
 				'target' => $target,
-			))->setText($value);
+			])->setText($value);
 		}
 	}

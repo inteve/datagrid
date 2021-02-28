@@ -22,7 +22,7 @@
 		private $value;
 
 		/** @var FilterModifier */
-		private $modifiers = array();
+		private $modifiers = [];
 
 
 		/**
@@ -72,7 +72,7 @@
 		 * @param  array
 		 * @return self
 		 */
-		public function addModifier($modifier, array $arguments = array())
+		public function addModifier($modifier, array $arguments = [])
 		{
 			$this->modifiers[] = new FilterModifier($modifier, $arguments);
 			return $this;

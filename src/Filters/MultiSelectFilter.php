@@ -37,7 +37,7 @@
 			}
 
 			$values = explode(',', $value);
-			array_walk($values, array('Nette\Utils\Strings', 'trim'));
+			array_walk($values, ['Nette\Utils\Strings', 'trim']);
 			array_filter($values, function ($value) {
 				return $value !== '';
 			});

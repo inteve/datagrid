@@ -86,7 +86,7 @@
 		{
 			if ($selected === NULL) {
 				if ($emptySelection === BulkAction::SELECT_NONE) {
-					return array();
+					return [];
 
 				} elseif ($emptySelection === BulkAction::SELECT_PAGE) {
 					return $this->getRows();
@@ -100,10 +100,10 @@
 				}
 
 			} elseif (empty($selected)) {
-				return array();
+				return [];
 			}
 
-			$res = array();
+			$res = [];
 			$selected = array_flip($selected);
 			$rows = $this->getRows();
 
