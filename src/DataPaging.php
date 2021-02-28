@@ -39,6 +39,42 @@
 		/**
 		 * @return bool
 		 */
+		public function onlyOffset()
+		{
+			return $this->offset !== NULL && $this->limit === NULL;
+		}
+
+
+		/**
+		 * @return bool
+		 */
+		public function onlyLimit()
+		{
+			return $this->offset === NULL && $this->limit !== NULL;
+		}
+
+
+		/**
+		 * @return bool
+		 */
+		public function offsetAndLimit()
+		{
+			return $this->offset !== NULL && $this->limit !== NULL;
+		}
+
+
+		/**
+		 * @return bool
+		 */
+		public function withoutPaging()
+		{
+			return $this->offset === NULL && $this->limit === NULL;
+		}
+
+
+		/**
+		 * @return bool
+		 */
 		public function hasOffset()
 		{
 			return $this->offset !== NULL;

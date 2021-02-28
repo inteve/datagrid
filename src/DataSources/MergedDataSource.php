@@ -42,7 +42,7 @@
 
 		public function getData(array $columns, array $filters, array $sorts, DataPaging $paging)
 		{
-			if (!$paging->hasLimit()) { // all data
+			if ($paging->withoutPaging()) { // all data
 				$rows = [];
 				$count = 0;
 
@@ -58,6 +58,63 @@
 				return new DataSourceResult($rows, $count);
 			}
 
-			throw new \Inteve\DataGrid\Exception('Not implemented yet.');
+			if ($paging->onlyLimit()) {
+				$rows = [];
+				$count = 0;
+
+				foreach ($this->dataSources as $dataSource) {
+					$result = $dataSource->getData($columns, $filters, $sorts, $paging);
+					$count += $result->getCount();
+					$dataSourceRows = $result->getRows();
+
+					foreach ($dataSourceRows as $row) {
+						$rows[] = $row;
+					}
+
+					$paging = new DataPaging(NULL, max(0, $paging->getLimit() - count($dataSourceRows)));
+				}
+
+				return new DataSourceResult($rows, $count);
+			}
+
+			if ($paging->onlyOffset()) {
+				$rows = [];
+				$count = 0;
+				$offset = $paging->getOffset();
+
+				foreach ($this->dataSources as $dataSource) {
+					$result = $dataSource->getData($columns, $filters, $sorts, new DataPaging($offset, NULL));
+					$count += $result->getCount();
+					$dataSourceRows = $result->getRows();
+					$offset = max(0, $offset - $result->getCount());
+
+					foreach ($dataSourceRows as $row) {
+						$rows[] = $row;
+					}
+				}
+
+				return new DataSourceResult($rows, $count);
+			}
+
+			// limit & offset
+			$rows = [];
+			$count = 0;
+			$offset = $paging->getOffset();
+			$limit = $paging->getLimit();
+
+			foreach ($this->dataSources as $dataSource) {
+				$result = $dataSource->getData($columns, $filters, $sorts, new DataPaging($offset, $limit));
+				$count += $result->getCount();
+				$dataSourceRows = $result->getRows();
+
+				foreach ($dataSourceRows as $row) {
+					$rows[] = $row;
+				}
+
+				$offset = max(0, $offset - $result->getCount());
+				$limit = max(0, $limit - count($dataSourceRows));
+			}
+
+			return new DataSourceResult($rows, $count);
 		}
 	}
