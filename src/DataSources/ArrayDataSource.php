@@ -65,7 +65,7 @@
 				$data = $this->rows;
 
 			} else { // only offset
-				throw new \Inteve\DataGrid\Exception('Invalid pagination.');
+				$data = array_slice($this->rows, $paging->getOffset(), NULL, FALSE /*preserve keys*/);
 			}
 
 			return new DataSourceResult($data, count($this->rows));

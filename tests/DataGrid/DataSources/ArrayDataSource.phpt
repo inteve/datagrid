@@ -39,6 +39,16 @@ test(function () use ($dataSource) { // only limit
 });
 
 
+test(function () use ($dataSource) { // only offset
+	$result = $dataSource->getData([], [], [], new DataPaging(3, NULL));
+	Assert::same([
+		['id' => 4],
+		['id' => 5],
+	], $result->getRows());
+	Assert::same(5, $result->getCount());
+});
+
+
 test(function () use ($dataSource) { // offset + limit
 	$result = $dataSource->getData([], [], [], DataPaging::create(1, 3));
 	Assert::same([
