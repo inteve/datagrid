@@ -565,6 +565,7 @@
 				$this->dataSource,
 				$this->columns,
 				$this->filters,
+				$this->sorts,
 				$this->page,
 				$this->getItemsOnPage()
 			);
