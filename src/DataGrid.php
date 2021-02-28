@@ -552,7 +552,7 @@
 		 */
 		private function getDataResult()
 		{
-			return $this->dataSource->getData($this->columns, $this->filters, $this->sorts, $this->page, $this->getItemsOnPage());
+			return $this->dataSource->getData($this->columns, $this->filters, $this->sorts, DataPaging::create($this->page, $this->getItemsOnPage()));
 		}
 
 

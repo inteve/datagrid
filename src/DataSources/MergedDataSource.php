@@ -3,6 +3,7 @@
 	namespace Inteve\DataGrid\DataSources;
 
 	use CzProject\Assert\Assert;
+	use Inteve\DataGrid\DataPaging;
 	use Inteve\DataGrid\DataSourceResult;
 	use Inteve\DataGrid\IColumn;
 	use Inteve\DataGrid\IDataSource;
@@ -39,24 +40,14 @@
 		}
 
 
-		/**
-		 * @param  IColumn[]
-		 * @param  IFilter[]
-		 * @param  int|NULL
-		 * @param  int|NULL
-		 * @return DataSourceResult
-		 */
-		public function getData(array $columns, array $filters, array $sorts, $page, $itemsOnPage)
+		public function getData(array $columns, array $filters, array $sorts, DataPaging $paging)
 		{
-			Assert::intOrNull($page);
-			Assert::intOrNull($itemsOnPage);
-
-			if ($itemsOnPage === NULL) { // all data
+			if (!$paging->hasLimit()) { // all data
 				$rows = [];
 				$count = 0;
 
 				foreach ($this->dataSources as $dataSource) {
-					$result = $dataSource->getData($columns, $filters, $sorts, NULL, NULL);
+					$result = $dataSource->getData($columns, $filters, $sorts, $paging);
 					$count += $result->getCount();
 
 					foreach ($result->getRows() as $row) {

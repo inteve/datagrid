@@ -3,6 +3,7 @@
 	namespace Inteve\DataGrid\DataSources;
 
 	use CzProject\Assert\Assert;
+	use Inteve\DataGrid\DataPaging;
 	use Inteve\DataGrid\DataSourceResult;
 	use Inteve\DataGrid\IColumn;
 	use Inteve\DataGrid\IDataSource;
@@ -41,18 +42,8 @@
 		}
 
 
-		/**
-		 * @param  IColumn[]
-		 * @param  IFilter[]
-		 * @param  int|NULL
-		 * @param  int|NULL
-		 * @return DataSourceResult
-		 */
-		public function getData(array $columns, array $filters, array $sorts, $page, $itemsOnPage)
+		public function getData(array $columns, array $filters, array $sorts, DataPaging $paging)
 		{
-			Assert::intOrNull($page);
-			Assert::intOrNull($itemsOnPage);
-
 			if (!empty($filters)) {
 				throw new \Inteve\DataGrid\Exception('Not implemented yet.');
 			}
@@ -64,13 +55,13 @@
 			// pager
 			$data = NULL;
 
-			if ($page !== NULL && $itemsOnPage !== NULL) { // offset + limit
-				$data = array_slice($this->rows, ($page - 1) * $itemsOnPage, $itemsOnPage, FALSE /*preserve keys*/);
+			if ($paging->hasOffset() && $paging->hasLimit()) { // offset + limit
+				$data = array_slice($this->rows, $paging->getOffset(), $paging->getLimit(), FALSE /*preserve keys*/);
 
-			} elseif ($page === NULL && $itemsOnPage !== NULL) { // only limit
-				$data = array_slice($this->rows, 0, $itemsOnPage, FALSE /*preserve keys*/);
+			} elseif (!$paging->hasOffset() && $paging->hasLimit()) { // only limit
+				$data = array_slice($this->rows, 0, $paging->getLimit(), FALSE /*preserve keys*/);
 
-			} elseif ($page === NULL && $itemsOnPage === NULL) { // all
+			} elseif (!$paging->hasOffset() && !$paging->hasLimit()) { // all
 				$data = $this->rows;
 
 			} else { // only offset

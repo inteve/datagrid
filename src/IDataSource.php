@@ -13,12 +13,10 @@
 
 
 		/**
-		 * @param  IColumn[]
-		 * @param  IFilter[]
-		 * @param  IColumn[]
-		 * @param  int|NULL
-		 * @param  int|NULL
+		 * @param  IColumn[] $columns
+		 * @param  IFilter[] $filters
+		 * @param  array<string, string> $sorts
 		 * @return DataSourceResult
 		 */
-		function getData(array $columns, array $filters, array $sorts, $page, $itemsOnPage);
+		function getData(array $columns, array $filters, array $sorts, DataPaging $paging);
 	}
