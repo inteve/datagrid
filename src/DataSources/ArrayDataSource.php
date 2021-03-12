@@ -34,6 +34,14 @@
 		 */
 		public function getRowId($row)
 		{
+			if (is_object($row)) {
+				if (!isset($row->{$this->idKey})) {
+					throw new \Inteve\DataGrid\InvalidArgumentException('Missing ID key in row.');
+				}
+
+				return $row->{$this->idKey};
+			}
+
 			if (!isset($row[$this->idKey])) {
 				throw new \Inteve\DataGrid\InvalidArgumentException('Missing ID key in row.');
 			}
