@@ -21,14 +21,14 @@
 		/** @var mixed */
 		private $value;
 
-		/** @var FilterModifier */
+		/** @var FilterModifier[] */
 		private $modifiers = [];
 
 
 		/**
-		 * @param  string
-		 * @param  int
-		 * @param  mixed
+		 * @param  string $field
+		 * @param  int $comparison
+		 * @param  mixed $value
 		 */
 		public function __construct($field, $comparison, $value)
 		{
@@ -68,8 +68,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  array
+		 * @param  string $modifier
+		 * @param  array<string, mixed> $arguments
 		 * @return self
 		 */
 		public function addModifier($modifier, array $arguments = [])
@@ -89,13 +89,13 @@
 
 
 		/**
-		 * @param  string
-		 * @param  int
-		 * @param  mixed
-		 * @return static
+		 * @param  string $field
+		 * @param  int $comparison
+		 * @param  mixed $value
+		 * @return self
 		 */
 		public static function create($field, $comparison, $value)
 		{
-			return new static($field, $comparison, $value);
+			return new self($field, $comparison, $value);
 		}
 	}

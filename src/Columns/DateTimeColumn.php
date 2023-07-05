@@ -12,10 +12,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string $format
+		 * @param  string|NULL $rowField
 		 */
 		public function __construct($name, $label, $format, $rowField = NULL)
 		{
@@ -25,10 +25,6 @@
 		}
 
 
-		/**
-		 * @param  mixed
-		 * @return string|Html
-		 */
 		protected function processDefaultFormat($value, $row)
 		{
 			if (!($value instanceof \DateTimeInterface) && is_string($value)) {
@@ -39,6 +35,10 @@
 				return $value->format($this->format);
 			}
 
-			return $value;
+			if (is_scalar($value) || $value === NULL || (is_object($value) && method_exists($value, '__toString'))) {
+				return (string) $value;
+			}
+
+			throw new \Inteve\DataGrid\InvalidArgumentException("Value type '" . gettype($value) . "' is not accepted.");
 		}
 	}

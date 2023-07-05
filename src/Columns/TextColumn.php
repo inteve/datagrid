@@ -5,13 +5,12 @@
 
 	class TextColumn extends AbstractColumn
 	{
-		/**
-		 * @param  mixed
-		 * @param  object|array
-		 * @return string
-		 */
 		protected function processDefaultFormat($value, $row)
 		{
-			return (string) $value;
+			if (is_scalar($value) || $value === NULL || (is_object($value) && method_exists($value, '__toString'))) {
+				return (string) $value;
+			}
+
+			throw new \Inteve\DataGrid\InvalidArgumentException("Value type '" . gettype($value) . "' is not accepted.");
 		}
 	}

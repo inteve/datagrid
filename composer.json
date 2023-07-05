@@ -23,12 +23,16 @@
 		"classmap": ["src/"]
 	},
 	"require-dev": {
-		"nette/tester": "^2.0"
+		"nette/tester": "^2.0",
+		"mbohuslavek/leanmapper-query": "^1.1"
 	},
 	"extra": {
 		"assets-files": "assets/",
 		"cleaner-ignore": [
 			"assets"
+		],
+		"phpstan-extensions": [
+			"phpstan/phpstan-nette"
 		]
 	}
 }

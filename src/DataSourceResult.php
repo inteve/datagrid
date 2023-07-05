@@ -9,7 +9,7 @@
 	{
 		use \Nette\SmartObject;
 
-		/** @var array */
+		/** @var array<array<string, mixed>|object> */
 		private $rows;
 
 		/** @var int */
@@ -17,8 +17,8 @@
 
 
 		/**
-		 * @param  array
-		 * @param  int
+		 * @param  array<array<string, mixed>|object> $rows
+		 * @param  int $totalCount
 		 */
 		public function __construct(array $rows, $totalCount)
 		{
@@ -28,7 +28,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<array<string, mixed>|object>
 		 */
 		public function getRows()
 		{

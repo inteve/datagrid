@@ -32,10 +32,6 @@
 		}
 
 
-		/**
-		 * @param  array|object
-		 * @return scalar
-		 */
 		public function getRowId($row)
 		{
 			if (!($row instanceof \LeanMapper\Entity)) {
@@ -51,6 +47,14 @@
 		public function getData(array $columns, array $filters, array $sorts, DataPaging $paging)
 		{
 			$query = $this->query;
+
+			if (!method_exists($query, 'count')) {
+				throw new \Inteve\DataGrid\InvalidStateException("Missing method " . \LeanMapperQuery\Query::class . '::count(): int');
+			}
+
+			if (!method_exists($query, 'find')) {
+				throw new \Inteve\DataGrid\InvalidStateException("Missing method " . \LeanMapperQuery\Query::class . '::find(): array');
+			}
 
 			// filtering
 			foreach ($filters as $filter) {
@@ -75,8 +79,12 @@
 					continue;
 				}
 
-				foreach ($column->getSortableFields() as $field) {
-					$query->orderBy('@' . $field . ' ' . $sort);
+				$fields = $column->getSortableFields();
+
+				if (is_array($fields)) {
+					foreach ($fields as $field) {
+						$query->orderBy('@' . $field . ' ' . $sort);
+					}
 				}
 			}
 
@@ -93,6 +101,10 @@
 		}
 
 
+		/**
+		 * @param  FilterCondition|FilterCondition[] $conditions
+		 * @return void
+		 */
 		protected function applyCondition(\LeanMapperQuery\Query $query, $conditions)
 		{
 			if (!is_array($conditions)) {

@@ -19,23 +19,22 @@
 		/** @var string */
 		private $label;
 
-		/** @var callback */
+		/** @var callable */
 		private $callback;
 
 		/** @var int */
 		private $emptySelection;
 
-		/** @var array */
+		/** @var array<string, mixed> */
 		private $options;
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  callback
-		 * @param  int  see  self::SELECT_*
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  int $emptySelection  see  self::SELECT_*
 		 */
-		public function __construct($name, $label, $callback, $emptySelection = self::SELECT_NONE)
+		public function __construct($name, $label, callable $callback, $emptySelection = self::SELECT_NONE)
 		{
 			Assert::string($name);
 			Assert::string($label);
@@ -70,7 +69,7 @@
 
 
 		/**
-		 * @return callback
+		 * @return callable
 		 */
 		public function getCallback()
 		{
@@ -88,8 +87,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  mixed
+		 * @param  string $name
+		 * @param  mixed $value
 		 * @return self
 		 */
 		public function setOption($name, $value)
@@ -100,8 +99,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  mixed|NULL
+		 * @param  string $name
+		 * @param  mixed|NULL $default
 		 * @return mixed|NULL
 		 */
 		public function getOption($name, $default = NULL)

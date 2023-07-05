@@ -13,7 +13,7 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string|NULL $placeholder
 		 * @return static
 		 */
 		public function setPlaceholder($placeholder)
@@ -24,18 +24,16 @@
 
 
 		/**
-		 * @param  mixed
+		 * @param  string $value
 		 * @return static
 		 */
 		public function setFormValue($value)
 		{
 			$this->setValue($value);
+			return $this;
 		}
 
 
-		/**
-		 * @return IControl
-		 */
 		public function getFormControl()
 		{
 			$input = new TextInput;

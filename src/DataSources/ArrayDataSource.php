@@ -14,13 +14,17 @@
 	{
 		use \Nette\SmartObject;
 
-		/** @var array */
+		/** @var array<array<string, mixed>|object> */
 		private $rows;
 
 		/** @var string */
 		private $idKey;
 
 
+		/**
+		 * @param array<array<string, mixed>|object> $rows
+		 * @param string $idKey
+		 */
 		public function __construct(array $rows, $idKey = 'id')
 		{
 			$this->rows = $rows;
@@ -28,10 +32,6 @@
 		}
 
 
-		/**
-		 * @param  array|object
-		 * @return scalar
-		 */
 		public function getRowId($row)
 		{
 			if (is_object($row)) {
@@ -39,11 +39,19 @@
 					throw new \Inteve\DataGrid\InvalidArgumentException('Missing ID key in row.');
 				}
 
+				if (!is_scalar($row->{$this->idKey})) {
+					throw new \Inteve\DataGrid\InvalidArgumentException('ID in row must be scalar.');
+				}
+
 				return $row->{$this->idKey};
 			}
 
 			if (!isset($row[$this->idKey])) {
 				throw new \Inteve\DataGrid\InvalidArgumentException('Missing ID key in row.');
+			}
+
+			if (!is_scalar($row[$this->idKey])) {
+				throw new \Inteve\DataGrid\InvalidArgumentException('ID in row must be scalar.');
 			}
 
 			return $row[$this->idKey];

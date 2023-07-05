@@ -12,7 +12,7 @@
 
 
 		/**
-		 * @param  mixed
+		 * @param  mixed $linkFactory
 		 * @return void
 		 * @throws InvalidArgumentException
 		 */
@@ -29,9 +29,10 @@
 
 
 		/**
-		 * @param  mixed
-		 * @param  string
-		 * @param  scalar
+		 * @param  callable|\Nette\Application\UI\Link $linkFactory
+		 * @param  string $parameter
+		 * @param  scalar $rowId
+		 * @param  array<string, mixed>|object $row
 		 * @return string
 		 */
 		public static function createUrl($linkFactory, $parameter, $rowId, $row)
@@ -41,6 +42,6 @@
 				return (string) $linkFactory;
 			}
 
-			return call_user_func($linkFactory, $row, $parameter, $rowId);
+			return (string) call_user_func($linkFactory, $row, $parameter, $rowId);
 		}
 	}

@@ -8,15 +8,15 @@
 
 	class MultiSelectFilter extends AbstractFilter
 	{
-		/** @var array */
+		/** @var array<string|int, mixed> */
 		protected $items;
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  array
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  array<string|int, mixed> $items
+		 * @param  string|NULL $rowField
 		 */
 		public function __construct($name, $label, array $items, $rowField = NULL)
 		{
@@ -26,7 +26,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $value
 		 * @return self
 		 */
 		public function setValue($value)
@@ -55,12 +55,16 @@
 				return NULL;
 			}
 
+			if (is_string($this->value)) {
+				return $this->value;
+			}
+
 			return implode(',', $this->value);
 		}
 
 
 		/**
-		 * @param  mixed
+		 * @param  string|string[] $value
 		 * @return self
 		 */
 		public function setFormValue($value)
@@ -75,9 +79,6 @@
 		}
 
 
-		/**
-		 * @return IControl
-		 */
 		public function getFormControl()
 		{
 			$select = new MultiSelectBox;

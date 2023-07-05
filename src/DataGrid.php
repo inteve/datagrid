@@ -11,7 +11,7 @@
 	{
 		const TEMPLATE_DEFAULT = 'default';
 
-		/** @var array  @persistent */
+		/** @var array<string, string|NULL>  @persistent */
 		public $filter = [];
 
 		/** @var string  @persistent */
@@ -26,37 +26,37 @@
 		/** @var IDataSource */
 		private $dataSource;
 
-		/** @var int */
+		/** @var int|NULL */
 		private $itemsOnPage = 20;
 
 		/** @var int[]|NULL */
 		private $perPageSteps = NULL;
 
-		/** @var array */
+		/** @var array<string, IColumn> */
 		private $columns = [];
 
-		/** @var array */
+		/** @var array<string, IFilter> */
 		private $filters = [];
 
-		/** @var array */
+		/** @var array<IColumn> */
 		private $sorts = [];
 
-		/** @var array */
+		/** @var array<string, Action> */
 		private $actions = [];
 
-		/** @var BulkAction */
+		/** @var array<string, BulkAction> */
 		private $bulkActions = [];
 
-		/** @var array|NULL */
+		/** @var array<string, string>|NULL */
 		private $defaultSort = [];
 
-		/** @var callback|NULL */
+		/** @var callable|NULL */
 		private $rowAttributes;
 
 		/** @var string */
 		private $templateFile;
 
-		/** @var array */
+		/** @var array<string, mixed> */
 		private $templateParameters;
 
 
@@ -68,7 +68,8 @@
 
 
 		/**
-		 * @param  string  file path or template name
+		 * @param  string $file  file path or template name
+		 * @param  array<string, mixed> $parameters
 		 * @return self
 		 */
 		public function setTemplateFile($file, array $parameters = [])
@@ -86,8 +87,8 @@
 
 
 		/**
-		 * @param  int|NULL
-		 * @param  bool|int[]
+		 * @param  int|NULL $itemsOnPage
+		 * @param  bool|int[] $changeable
 		 * @return self
 		 */
 		public function setItemsOnPage($itemsOnPage = NULL, $changeable = FALSE)
@@ -107,7 +108,10 @@
 			}
 
 			if ($this->perPageSteps !== NULL) {
-				$this->perPageSteps[] = $this->itemsOnPage;
+				if ($this->itemsOnPage !== NULL) {
+					$this->perPageSteps[] = $this->itemsOnPage;
+				}
+
 				$this->perPageSteps = array_unique($this->perPageSteps);
 				sort($this->perPageSteps, SORT_NUMERIC);
 			}
@@ -117,7 +121,7 @@
 
 
 		/**
-		 * @param  array  [column => (string) ASC|DESC]
+		 * @param  array<string, string> $sorts  [column => (string) ASC|DESC]
 		 * @return self
 		 */
 		public function setDefaultSort(array $sorts)
@@ -141,10 +145,9 @@
 
 
 		/**
-		 * @param  callback
 		 * @return self
 		 */
-		public function setRowAttributes($callback)
+		public function setRowAttributes(callable $callback)
 		{
 			$this->rowAttributes = $callback;
 			return $this;
@@ -152,9 +155,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
 		 * @return Columns\TextColumn
 		 */
 		public function addTextColumn($name, $label, $rowField = NULL)
@@ -164,10 +167,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $suffix
+		 * @param  string|NULL $rowField
 		 * @return Columns\NumberColumn
 		 */
 		public function addNumberColumn($name, $label, $suffix = NULL, $rowField = NULL)
@@ -178,10 +181,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  callable|NULL
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  callable|NULL $link
+		 * @param  string|NULL $rowField
 		 * @return Columns\LinkColumn
 		 */
 		public function addLinkColumn($name, $label, callable $link = NULL, $rowField = NULL)
@@ -191,9 +194,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
 		 * @return Columns\DateTimeColumn
 		 */
 		public function addDateColumn($name, $label, $rowField = NULL)
@@ -203,10 +206,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
-		 * @param  string
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
+		 * @param  string $format
 		 * @return Columns\DateTimeColumn
 		 */
 		public function addDateTimeColumn($name, $label, $rowField = NULL, $format = 'j.n.Y / H:i:s')
@@ -216,8 +219,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
 		 * @return Filters\TextFilter
 		 */
 		public function addTextFilter($name, $label, $rowField = NULL)
@@ -228,8 +232,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  array<string|int, mixed> $items
+		 * @param  string|NULL $rowField
 		 * @return Filters\SelectFilter
 		 */
 		public function addSelectFilter($name, $label, array $items, $rowField = NULL)
@@ -239,8 +245,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  array<string|int, mixed> $items
+		 * @param  string|NULL $rowField
 		 * @return Filters\MultiSelectFilter
 		 */
 		public function addMultiSelectFilter($name, $label, array $items, $rowField = NULL)
@@ -250,9 +258,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  Action
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  callable|\Nette\Application\UI\Link $link
+		 * @return Action
 		 */
 		public function addAction($name, $label, $link)
 		{
@@ -265,13 +274,12 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  callback
-		 * @param  int
-		 * @return self
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  int $emptySelection
+		 * @return BulkAction
 		 */
-		public function addBulkAction($name, $label, $callback, $emptySelection = BulkAction::SELECT_NONE)
+		public function addBulkAction($name, $label, callable $callback, $emptySelection = BulkAction::SELECT_NONE)
 		{
 			if (isset($this->bulkActions[$name])) {
 				throw new DuplicateException("Bulk action '$name' already exists.");
@@ -281,6 +289,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		public function handleResetFilter()
 		{
 			$this->filter = [];
@@ -289,6 +300,9 @@
 		}
 
 
+		/**
+		 * @return \Nette\Application\UI\Form
+		 */
 		public function createComponentFilters()
 		{
 			$form = new \Nette\Application\UI\Form;
@@ -308,8 +322,9 @@
 
 		/**
 		 * @internal
+		 * @return void
 		 */
-		public function processFilters($form)
+		public function processFilters(\Nette\Application\UI\Form $form)
 		{
 			$values = $form->getValues();
 			$this->filter = [];
@@ -318,13 +333,16 @@
 			foreach ($values->filters as $name => $value) {
 				$filter = $this->getFilter($name);
 				$filter->setFormValue($value);
-				$this->filter[$name] = $filter->getValue();
+				$this->filter[(string) $name] = $filter->getValue();
 			}
 
 			$this->redirect('this');
 		}
 
 
+		/**
+		 * @return \Nette\Application\UI\Form
+		 */
 		public function createComponentViewOptions()
 		{
 			$form = new \Nette\Application\UI\Form;
@@ -343,8 +361,9 @@
 
 		/**
 		 * @internal
+		 * @return void
 		 */
-		public function processViewOptions($form)
+		public function processViewOptions(\Nette\Application\UI\Form $form)
 		{
 			$values = $form->getValues();
 			$this->page = 1;
@@ -361,6 +380,9 @@
 		}
 
 
+		/**
+		 * @return \Nette\Application\UI\Form
+		 */
 		public function createComponentBulkAction()
 		{
 			$form = new \Nette\Application\UI\Form;
@@ -371,11 +393,17 @@
 
 		/**
 		 * @internal
+		 * @return void
 		 */
-		public function processBulkAction($form)
+		public function processBulkAction(\Nette\Application\UI\Form $form)
 		{
 			$dataProxy = $this->createDataProxy();
 			$actions = $form->getHttpData($form::DATA_LINE | $form::DATA_KEYS, 'action[]');
+
+			if (!is_array($actions)) {
+				throw new InvalidArgumentException("Actions must be array.");
+			}
+
 			$bulkAction = NULL;
 
 			foreach ($actions as $name => $label) {
@@ -391,10 +419,17 @@
 			}
 
 			$values = $form->getHttpData($form::DATA_LINE, 'selected[]');
+
+			if (!is_array($values)) {
+				throw new InvalidArgumentException("Values must be array.");
+			}
+
 			$emptySelection = $bulkAction->getEmptySelection();
 
 			if (empty($values) && $emptySelection === BulkAction::SELECT_NONE) {
-				$this->getPresenter()->flashMessage('Nebyly vybrány žádné řádky.');
+				$presenter = $this->getPresenter();
+				assert($presenter !== NULL);
+				$presenter->flashMessage('Nebyly vybrány žádné řádky.');
 				$this->redirect('this');
 			}
 
@@ -406,7 +441,7 @@
 
 
 		/**
-		 * @param  array
+		 * @param  array<string, mixed> $params
 		 * @return void
 		 */
 		public function loadState(array $params)
@@ -426,8 +461,10 @@
 				$sorts = $this->unserializeSort($this->sort);
 			}
 
-			foreach ($sorts as $column => $sort) {
-				$this->sorts[] = $this->getColumn($column)->setSort(strtoupper($sort));
+			if (is_array($sorts)) {
+				foreach ($sorts as $column => $sort) {
+					$this->sorts[] = $this->getColumn($column)->setSort(strtoupper($sort));
+				}
 			}
 
 			// items on page changes
@@ -477,6 +514,7 @@
 			Assert::string($this->templateFile, 'Parameter $templateFile is not set, use $grid->setTemplateFile().');
 			$result = $this->getDataResult();
 			$template = $this->createTemplate();
+			assert($template instanceof \Nette\Bridges\ApplicationLatte\Template);
 			$template->setParameters($this->templateParameters);
 			$template->grid = $this;
 			$template->rows = $result->getRows();
@@ -491,7 +529,7 @@
 
 
 		/**
-		 * @param  array|object
+		 * @param  array<string, mixed>|object $row
 		 * @return scalar
 		 */
 		public function getRowId($row)
@@ -501,7 +539,9 @@
 
 
 		/**
-		 * @return array|NULL
+		 * @param  array<string, mixed>|object $row
+		 * @param  array<string, mixed>|NULL $defaultAttributes
+		 * @return array<string, mixed>|NULL
 		 */
 		public function getRowAttributes($row, array $defaultAttributes = NULL)
 		{
@@ -573,8 +613,8 @@
 
 
 		/**
-		 * @param  DataSourceResult
-		 * @param  int
+		 * @param  DataSourceResult $result
+		 * @param  int $page
 		 * @param  int|NULL $itemsOnPage
 		 * @return Paginator|NULL
 		 */
@@ -593,7 +633,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $name
 		 * @return bool
 		 */
 		private function hasColumn($name)
@@ -603,8 +643,8 @@
 
 
 		/**
-		 * @param  string
-		 * @return bool
+		 * @param  string $name
+		 * @return IColumn
 		 */
 		private function getColumn($name)
 		{
@@ -616,7 +656,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $name
 		 * @return bool
 		 */
 		private function hasFilter($name)
@@ -626,8 +666,8 @@
 
 
 		/**
-		 * @param  string
-		 * @return bool
+		 * @param  string $name
+		 * @return IFilter
 		 */
 		private function getFilter($name)
 		{
@@ -639,7 +679,9 @@
 
 
 		/**
-		 * @return IColumn
+		 * @template T of IColumn
+		 * @param  T $column
+		 * @return T
 		 */
 		private function addColumn(IColumn $column)
 		{
@@ -654,7 +696,9 @@
 
 
 		/**
-		 * @return IFilter
+		 * @template T of IFilter
+		 * @param  T $filter
+		 * @return T
 		 */
 		private function addFilter(IFilter $filter)
 		{
@@ -669,8 +713,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
+		 * @param  string $column
+		 * @param  string $sort
 		 * @return string
 		 */
 		private function serializeSort($column, $sort)
@@ -680,8 +724,8 @@
 
 
 		/**
-		 * @param  string
-		 * @return array
+		 * @param  string $s
+		 * @return array<string, string>
 		 */
 		private function unserializeSort($s)
 		{

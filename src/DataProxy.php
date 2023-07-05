@@ -24,13 +24,20 @@
 		/** @var int */
 		private $page;
 
-		/** @var string */
+		/** @var int|NULL */
 		private $itemsOnPage;
 
 		/** @var DataSourceResult */
 		private $result;
 
 
+		/**
+		 * @param IColumn[] $columns
+		 * @param IFilter[] $filters
+		 * @param IColumn[] $sorts
+		 * @param int $page
+		 * @param int|NULL $itemsOnPage
+		 */
 		public function __construct(
 			IDataSource $dataSource,
 			array $columns,
@@ -59,8 +66,7 @@
 					$this->columns,
 					$this->filters,
 					$this->sorts,
-					$this->page,
-					$this->itemsOnPage
+					DataPaging::create($this->page, $this->itemsOnPage)
 				);
 			}
 
@@ -69,7 +75,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<array<string, mixed>|object>
 		 */
 		public function getRows()
 		{
@@ -78,9 +84,9 @@
 
 
 		/**
-		 * @param  int[]|string[]|NULL
-		 * @param  int
-		 * @return array
+		 * @param  array<int|string>|NULL $selected
+		 * @param  int $emptySelection
+		 * @return array<array<string, mixed>|object>
 		 */
 		public function getSelectedRows(array $selected = NULL, $emptySelection)
 		{
@@ -92,7 +98,7 @@
 					return $this->getRows();
 
 				} elseif ($emptySelection === BulkAction::SELECT_ALL) {
-					$result = $this->dataSource->getData($this->columns, $this->filters, NULL, NULL);
+					$result = $this->dataSource->getData($this->columns, $this->filters, [], DataPaging::create(NULL, NULL));
 					return $result->getRows();
 
 				} else {

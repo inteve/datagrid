@@ -20,10 +20,10 @@
 		/** @var string */
 		protected $rowField;
 
-		/** @var callback|NULL */
+		/** @var callable|NULL */
 		protected $customRender;
 
-		/** @var callback|NULL */
+		/** @var callable|NULL */
 		protected $valueProvider;
 
 		/** @var string|NULL */
@@ -32,17 +32,17 @@
 		/** @var bool|string[] */
 		protected $sortable = FALSE;
 
-		/** @var array|NULL  [attr => value] */
+		/** @var array<string, mixed>|NULL  [attr => value] */
 		protected $attributes;
 
-		/** @var array|NULL  [property => value] */
+		/** @var array<string, mixed>|NULL  [property => value] */
 		protected $styles;
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
 		 */
 		public function __construct($name, $label, $rowField = NULL)
 		{
@@ -75,7 +75,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $rowField
 		 * @return self
 		 */
 		public function setRowField($rowField)
@@ -95,10 +95,6 @@
 		}
 
 
-		/**
-		 * @param  object|array
-		 * @return string
-		 */
 		public function formatValue($row)
 		{
 			if ($this->customRender !== NULL) {
@@ -119,7 +115,7 @@
 
 
 		/**
-		 * @param  callback|NULL
+		 * @param  callable|NULL $customRender
 		 * @return self
 		 */
 		public function setCustomRender($customRender)
@@ -130,7 +126,7 @@
 
 
 		/**
-		 * @param  callback|NULL
+		 * @param  callable|NULL $valueProvider
 		 * @return self
 		 */
 		public function setValueProvider(callable $valueProvider = NULL)
@@ -151,7 +147,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $sorting
 		 * @return self
 		 */
 		public function setSort($sorting)
@@ -168,7 +164,7 @@
 
 
 		/**
-		 * @param  bool|string|string[]
+		 * @param  bool|string|string[] $sortable
 		 * @return self
 		 */
 		public function setSortable($sortable = TRUE)
@@ -207,8 +203,8 @@
 
 
 		/**
-		 * @param  array|NULL
-		 * @return array|NULL
+		 * @param  array<string, mixed>|NULL $defaultAttributes
+		 * @return array<string, mixed>|NULL
 		 */
 		public function getAttributes(array $defaultAttributes = NULL)
 		{
@@ -223,8 +219,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $attr
+		 * @param  scalar|NULL $value
 		 * @return self
 		 */
 		public function setAttribute($attr, $value)
@@ -245,8 +241,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $property
+		 * @param  scalar|NULL $value
 		 * @return self
 		 */
 		public function setStyle($property, $value)
@@ -263,9 +259,9 @@
 
 
 		/**
-		 * @param  mixed
-		 * @param  object|array
-		 * @return string
+		 * @param  mixed $value
+		 * @param  object|array<string, mixed> $row
+		 * @return string|\Nette\Utils\Html
 		 */
 		abstract protected function processDefaultFormat($value, $row);
 	}

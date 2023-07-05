@@ -22,7 +22,8 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $rowField
+		 * @return self
 		 */
 		function setRowField($rowField);
 
@@ -34,20 +35,21 @@
 
 
 		/**
-		 * @param  object|array
+		 * @param  array<string, mixed>|object $row
 		 * @return string
 		 */
 		function formatValue($row);
 
 
 		/**
-		 * @param  callback|NULL
+		 * @param  callable|NULL $customRender
+		 * @return self
 		 */
 		function setCustomRender($customRender);
 
 
 		/**
-		 * @param  callback|NULL
+		 * @return self
 		 */
 		function setValueProvider(callable $customRender = NULL);
 
@@ -59,13 +61,15 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $sorting
+		 * @return self
 		 */
 		function setSort($sorting);
 
 
 		/**
-		 * @param  bool|string|string[]
+		 * @param  bool|string|string[] $sortable
+		 * @return self
 		 */
 		function setSortable($sortable = TRUE);
 
@@ -83,20 +87,22 @@
 
 
 		/**
-		 * @return array|NULL
+		 * @return array<string, mixed>|NULL
 		 */
 		function getAttributes();
 
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $attr
+		 * @param  scalar|NULL $value
+		 * @return self
 		 */
 		function setAttribute($attr, $value);
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $property
+		 * @param  scalar|NULL $value
+		 * @return self
 		 */
 		function setStyle($property, $value);
 	}

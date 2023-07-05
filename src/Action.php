@@ -15,7 +15,7 @@
 		/** @var string */
 		private $label;
 
-		/** @var mixed */
+		/** @var callable|\Nette\Application\UI\Link */
 		private $linkFactory;
 
 		/** @var IDataSource */
@@ -27,7 +27,7 @@
 		/** @var string */
 		private $primaryKey = 'id';
 
-		/** @var callback */
+		/** @var callable */
 		private $disabled;
 
 		/** @var string */
@@ -35,9 +35,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  mixed
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  callable|\Nette\Application\UI\Link $linkFactory
 		 */
 		public function __construct($name, $label, $linkFactory, IDataSource $dataSource)
 		{
@@ -55,6 +55,15 @@
 		/**
 		 * @return string
 		 */
+		public function getName()
+		{
+			return $this->name;
+		}
+
+
+		/**
+		 * @return string
+		 */
 		public function getLabel()
 		{
 			return $this->label;
@@ -62,7 +71,7 @@
 
 
 		/**
-		 * @param  object|array
+		 * @param  object|array<string, mixed> $row
 		 * @return string
 		 */
 		public function getUrl($row)
@@ -72,7 +81,7 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string|NULL $icon
 		 * @return self
 		 */
 		public function setIcon($icon)
@@ -93,7 +102,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $primaryKey
 		 * @return self
 		 */
 		public function setPrimaryKey($primaryKey)
@@ -114,10 +123,9 @@
 
 
 		/**
-		 * @param  callback
 		 * @return self
 		 */
-		public function setDisabled($callback)
+		public function setDisabled(callable $callback)
 		{
 			$this->disabled = $callback;
 			return $this;
@@ -125,7 +133,7 @@
 
 
 		/**
-		 * @param  array|object
+		 * @param  array<string, mixed>|object $row
 		 * @return bool
 		 */
 		public function isDisabled($row)
@@ -139,7 +147,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $type
 		 * @return self
 		 */
 		public function setType($type)
@@ -150,7 +158,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $type
 		 * @return bool
 		 */
 		public function isOfType($type)

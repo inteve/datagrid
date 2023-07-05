@@ -86,7 +86,10 @@
 		 */
 		public function getOffset()
 		{
-			Assert::int($this->offset, 'Offset is not set.');
+			if ($this->offset === NULL) {
+				throw new InvalidStateException('Offset is not set.');
+			}
+
 			return $this->offset;
 		}
 
@@ -105,7 +108,10 @@
 		 */
 		public function getLimit()
 		{
-			Assert::int($this->limit, 'Limit is not set.');
+			if ($this->limit === NULL) {
+				throw new InvalidStateException('Limit is not set.');
+			}
+
 			return $this->limit;
 		}
 

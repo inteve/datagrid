@@ -18,18 +18,20 @@
 		private $dataSources;
 
 
+		/**
+		 * @param array<class-string, IDataSource> $dataSources
+		 */
 		public function __construct(array $dataSources)
 		{
 			$this->dataSources = $dataSources;
 		}
 
 
-		/**
-		 * @param  array|object
-		 * @return scalar
-		 */
 		public function getRowId($row)
 		{
+			if (is_array($row)) {
+				throw new \Inteve\DataGrid\InvalidArgumentException(self::class . ' requires only objects, array given.');
+			}
 			$class = get_class($row);
 
 			if (!isset($this->dataSources[$class])) {

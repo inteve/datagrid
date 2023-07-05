@@ -14,9 +14,9 @@
 
 
 		/**
-		 * @param  object|array
-		 * @param  string
-		 * @return scalar|NULL
+		 * @param  object|array<string, mixed> $row
+		 * @param  string $field
+		 * @return mixed|NULL
 		 */
 		public static function getRowValue($row, $field)
 		{
@@ -29,9 +29,9 @@
 
 
 		/**
-		 * @param  array|NULL
-		 * @param  array|NULL
-		 * @return array|NULL
+		 * @param  array<string, mixed>|NULL $attributes
+		 * @param  array<string, mixed>|NULL $defaultAttributes
+		 * @return array<string, mixed>|NULL
 		 */
 		public static function mergeAttributes(array $attributes = NULL, array $defaultAttributes = NULL)
 		{
@@ -51,6 +51,7 @@
 
 						if (is_array($value)) {
 							foreach ($value as $val) {
+								assert(is_array($attributes[$attr]));
 								$attributes[$attr][] = $val;
 							}
 

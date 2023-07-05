@@ -2,7 +2,7 @@
 
 	namespace Inteve\DataGrid;
 
-	use Nette\Forms\IControl;
+	use Nette\Forms\Controls\BaseControl;
 
 
 	interface IFilter
@@ -30,19 +30,21 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $rowField
+		 * @return self
 		 */
 		function setRowField($rowField);
 
 
 		/**
-		 * @param  string
+		 * @return string
 		 */
 		function getRowField();
 
 
 		/**
-		 * @param  string
+		 * @param  string $value
+		 * @return self
 		 */
 		function setValue($value);
 
@@ -54,20 +56,21 @@
 
 
 		/**
-		 * @param  callback|int
+		 * @param  callable|int $condition
 		 * @return self
 		 */
 		function setCondition($condition);
 
 
 		/**
-		 * @param  mixed
+		 * @param  mixed $value
+		 * @return self
 		 */
 		function setFormValue($value);
 
 
 		/**
-		 * @return IControl
+		 * @return BaseControl
 		 */
 		function getFormControl();
 

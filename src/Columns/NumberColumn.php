@@ -16,7 +16,7 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string|NULL $prefix
 		 * @return static
 		 */
 		public function setPrefix($prefix)
@@ -27,7 +27,7 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string|NULL $suffix
 		 * @return static
 		 */
 		public function setSuffix($suffix)
@@ -38,7 +38,7 @@
 
 
 		/**
-		 * @param  int
+		 * @param  int $decimals
 		 * @return static
 		 */
 		public function setDecimals($decimals)
@@ -48,16 +48,16 @@
 		}
 
 
-		/**
-		 * @param  mixed
-		 * @param  object|array
-		 * @return string
-		 */
 		protected function processDefaultFormat($value, $row)
 		{
 			if (is_int($value) || is_float($value)) {
 				return $this->prefix . number_format($value, $this->decimals, ',', '') . $this->suffix;
 			}
-			return (string) $value;
+
+			if (is_scalar($value) || $value === NULL || (is_object($value) && method_exists($value, '__toString'))) {
+				return (string) $value;
+			}
+
+			throw new \Inteve\DataGrid\InvalidArgumentException("Value type '" . gettype($value) . "' is not accepted.");
 		}
 	}

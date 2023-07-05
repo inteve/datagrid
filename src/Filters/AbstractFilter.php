@@ -22,17 +22,17 @@
 		/** @var string */
 		protected $rowField;
 
-		/** @var mixed|NULL */
+		/** @var string|string[]|NULL */
 		protected $value;
 
-		/** @var int|callback */
+		/** @var int|callable */
 		protected $condition = IFilter::EQUAL;
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  string|NULL $rowField
 		 */
 		public function __construct($name, $label, $rowField = NULL)
 		{
@@ -74,7 +74,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $rowField
 		 * @return self
 		 */
 		public function setRowField($rowField)
@@ -95,7 +95,7 @@
 
 
 		/**
-		 * @param  mixed
+		 * @param  string $value
 		 * @return self
 		 */
 		public function setValue($value)
@@ -106,18 +106,19 @@
 		}
 
 
-		/**
-		 * @return string|NULL
-		 */
 		public function getValue()
 		{
+			if (is_array($this->value)) {
+				return implode(',', $this->value);
+			}
+
 			return $this->value;
 		}
 
 
 		/**
-		 * @param  callback|int
-		 * @return self
+		 * @param  callable|int $condition
+		 * @return static
 		 */
 		public function setCondition($condition)
 		{

@@ -12,12 +12,13 @@
 		/** @var string */
 		private $name;
 
-		/** @var array */
+		/** @var array<string, mixed> */
 		private $arguments;
 
 
 		/**
-		 * @param  string
+		 * @param  string $name
+		 * @param  array<string, mixed> $arguments
 		 */
 		public function __construct($name, array $arguments = [])
 		{
@@ -37,7 +38,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<string, mixed>
 		 */
 		public function getArguments()
 		{

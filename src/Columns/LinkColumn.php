@@ -13,10 +13,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  callable|NULL
-		 * @param  string|NULL
+		 * @param  string $name
+		 * @param  string $label
+		 * @param  callable|NULL $linkFactory
+		 * @param  string|NULL $rowField
 		 */
 		public function __construct($name, $label, callable $linkFactory = NULL, $rowField = NULL)
 		{
@@ -25,10 +25,6 @@
 		}
 
 
-		/**
-		 * @param  mixed
-		 * @return string|Html
-		 */
 		protected function processDefaultFormat($value, $row)
 		{
 			$url = $value;
