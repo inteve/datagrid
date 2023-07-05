@@ -1,7 +1,9 @@
-
 # Inteve\Datagrid
 
-[![Tests Status](https://github.com/inteve/datagrid/workflows/Tests/badge.svg)](https://github.com/inteve/datagrid/actions)
+[![Build Status](https://github.com/inteve/datagrid/workflows/Build/badge.svg)](https://github.com/inteve/datagrid/actions)
+[![Downloads this Month](https://img.shields.io/packagist/dm/inteve/datagrid.svg)](https://packagist.org/packages/inteve/datagrid)
+[![Latest Stable Version](https://poser.pugx.org/inteve/datagrid/v/stable)](https://github.com/inteve/datagrid/releases)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/inteve/datagrid/blob/master/license.md)
 
 DataGrid component for Nette.
 
