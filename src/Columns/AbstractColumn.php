@@ -1,5 +1,7 @@
 <?php
 
+	declare(strict_types=1);
+
 	namespace Inteve\DataGrid\Columns;
 
 	use CzProject\Assert\Assert;

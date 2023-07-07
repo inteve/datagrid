@@ -1,5 +1,7 @@
 <?php
 
+	declare(strict_types=1);
+
 	namespace Inteve\DataGrid\Columns;
 
 	use Nette\Utils\Html;
@@ -34,7 +36,7 @@
 				$url = call_user_func($this->linkFactory, $value, $row);
 			}
 
-			if (Validators::isUrl($url)) { // external URL
+			if (is_string($url) && Validators::isUrl($url)) { // external URL
 				$target = '_blank';
 			}
 

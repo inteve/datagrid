@@ -1,5 +1,7 @@
 <?php
 
+	declare(strict_types=1);
+
 	namespace Inteve\DataGrid;
 
 
@@ -36,7 +38,7 @@
 
 		/**
 		 * @param  array<string, mixed>|object $row
-		 * @return string
+		 * @return string|\Nette\Utils\Html
 		 */
 		function formatValue($row);
 

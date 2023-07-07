@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Inteve\DataGrid\DataPaging;
 use Inteve\DataGrid\DataSources\ArrayDataSource;
 use Inteve\DataGrid\DataSources\MergedDataSource;

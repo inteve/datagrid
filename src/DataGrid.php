@@ -1,5 +1,7 @@
 <?php
 
+	declare(strict_types=1);
+
 	namespace Inteve\DataGrid;
 
 	use CzProject\Assert\Assert;
@@ -442,9 +444,8 @@
 
 		/**
 		 * @param  array<string, mixed> $params
-		 * @return void
 		 */
-		public function loadState(array $params)
+		public function loadState(array $params): void
 		{
 			parent::loadState($params);
 
@@ -515,7 +516,11 @@
 			$result = $this->getDataResult();
 			$template = $this->createTemplate();
 			assert($template instanceof \Nette\Bridges\ApplicationLatte\Template);
-			$template->setParameters($this->templateParameters);
+
+			foreach ($this->templateParameters as $templateParameter => $templateParameterValue) {
+				$template->{$templateParameter} = $templateParameterValue;
+			}
+
 			$template->grid = $this;
 			$template->rows = $result->getRows();
 			$template->paginator = $this->createPaginator($result, $this->page, $this->getItemsOnPage());

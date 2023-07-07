@@ -1,5 +1,7 @@
 <?php
 
+	declare(strict_types=1);
+
 	namespace Inteve\DataGrid\Filters;
 
 	use Inteve\DataGrid\IFilter;
@@ -37,7 +39,9 @@
 			}
 
 			$values = explode(',', $value);
-			array_walk($values, ['Nette\Utils\Strings', 'trim']);
+			array_walk($values, function (string $value, $key) {
+				return \Nette\Utils\Strings::trim($value);
+			});
 			array_filter($values, function ($value) {
 				return $value !== '';
 			});
