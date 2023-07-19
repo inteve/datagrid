@@ -91,7 +91,7 @@
 		/**
 		 * @param  string $name
 		 * @param  mixed $value
-		 * @return self
+		 * @return $this
 		 */
 		public function setOption($name, $value)
 		{

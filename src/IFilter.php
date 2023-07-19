@@ -33,7 +33,7 @@
 
 		/**
 		 * @param  string $rowField
-		 * @return self
+		 * @return $this
 		 */
 		function setRowField($rowField);
 
@@ -46,7 +46,7 @@
 
 		/**
 		 * @param  string $value
-		 * @return self
+		 * @return $this
 		 */
 		function setValue($value);
 
@@ -59,14 +59,14 @@
 
 		/**
 		 * @param  callable|int $condition
-		 * @return self
+		 * @return $this
 		 */
 		function setCondition($condition);
 
 
 		/**
 		 * @param  mixed $value
-		 * @return self
+		 * @return $this
 		 */
 		function setFormValue($value);
 

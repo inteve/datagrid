@@ -29,7 +29,7 @@
 
 		/**
 		 * @param  string $value
-		 * @return self
+		 * @return $this
 		 */
 		public function setValue($value)
 		{
@@ -69,7 +69,7 @@
 
 		/**
 		 * @param  string|string[] $value
-		 * @return self
+		 * @return $this
 		 */
 		public function setFormValue($value)
 		{

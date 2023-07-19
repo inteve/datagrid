@@ -25,7 +25,7 @@
 
 		/**
 		 * @param  string $rowField
-		 * @return self
+		 * @return $this
 		 */
 		function setRowField($rowField);
 
@@ -45,13 +45,13 @@
 
 		/**
 		 * @param  callable|NULL $customRender
-		 * @return self
+		 * @return $this
 		 */
 		function setCustomRender($customRender);
 
 
 		/**
-		 * @return self
+		 * @return $this
 		 */
 		function setValueProvider(callable $customRender = NULL);
 
@@ -64,14 +64,14 @@
 
 		/**
 		 * @param  string $sorting
-		 * @return self
+		 * @return $this
 		 */
 		function setSort($sorting);
 
 
 		/**
 		 * @param  bool|string|string[] $sortable
-		 * @return self
+		 * @return $this
 		 */
 		function setSortable($sortable = TRUE);
 
@@ -97,14 +97,14 @@
 		/**
 		 * @param  string $attr
 		 * @param  scalar|NULL $value
-		 * @return self
+		 * @return $this
 		 */
 		function setAttribute($attr, $value);
 
 		/**
 		 * @param  string $property
 		 * @param  scalar|NULL $value
-		 * @return self
+		 * @return $this
 		 */
 		function setStyle($property, $value);
 	}

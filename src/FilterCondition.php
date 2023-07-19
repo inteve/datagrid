@@ -72,7 +72,7 @@
 		/**
 		 * @param  string $modifier
 		 * @param  array<string, mixed> $arguments
-		 * @return self
+		 * @return $this
 		 */
 		public function addModifier($modifier, array $arguments = [])
 		{
