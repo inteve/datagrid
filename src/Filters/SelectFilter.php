@@ -27,7 +27,7 @@
 
 		/**
 		 * @param  string $value
-		 * @return self
+		 * @return $this
 		 */
 		public function setFormValue($value)
 		{

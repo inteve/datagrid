@@ -82,7 +82,7 @@
 
 		/**
 		 * @param  string|NULL $icon
-		 * @return self
+		 * @return $this
 		 */
 		public function setIcon($icon)
 		{
@@ -103,7 +103,7 @@
 
 		/**
 		 * @param  string $primaryKey
-		 * @return self
+		 * @return $this
 		 */
 		public function setPrimaryKey($primaryKey)
 		{
@@ -123,7 +123,7 @@
 
 
 		/**
-		 * @return self
+		 * @return $this
 		 */
 		public function setDisabled(callable $callback)
 		{
@@ -148,7 +148,7 @@
 
 		/**
 		 * @param  string $type
-		 * @return self
+		 * @return $this
 		 */
 		public function setType($type)
 		{

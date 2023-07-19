@@ -14,7 +14,7 @@
 
 		/**
 		 * @param  string|NULL $placeholder
-		 * @return static
+		 * @return $this
 		 */
 		public function setPlaceholder($placeholder)
 		{
@@ -25,7 +25,7 @@
 
 		/**
 		 * @param  string $value
-		 * @return static
+		 * @return $this
 		 */
 		public function setFormValue($value)
 		{

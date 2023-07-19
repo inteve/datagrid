@@ -17,7 +17,7 @@
 
 		/**
 		 * @param  string|NULL $prefix
-		 * @return static
+		 * @return $this
 		 */
 		public function setPrefix($prefix)
 		{
@@ -28,7 +28,7 @@
 
 		/**
 		 * @param  string|NULL $suffix
-		 * @return static
+		 * @return $this
 		 */
 		public function setSuffix($suffix)
 		{
@@ -39,7 +39,7 @@
 
 		/**
 		 * @param  int $decimals
-		 * @return static
+		 * @return $this
 		 */
 		public function setDecimals($decimals)
 		{

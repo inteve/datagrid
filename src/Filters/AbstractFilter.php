@@ -75,7 +75,7 @@
 
 		/**
 		 * @param  string $rowField
-		 * @return self
+		 * @return $this
 		 */
 		public function setRowField($rowField)
 		{
@@ -96,7 +96,7 @@
 
 		/**
 		 * @param  string $value
-		 * @return self
+		 * @return $this
 		 */
 		public function setValue($value)
 		{
@@ -118,7 +118,7 @@
 
 		/**
 		 * @param  callable|int $condition
-		 * @return static
+		 * @return $this
 		 */
 		public function setCondition($condition)
 		{

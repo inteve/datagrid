@@ -70,7 +70,7 @@
 		/**
 		 * @param  string $file  file path or template name
 		 * @param  array<string, mixed> $parameters
-		 * @return self
+		 * @return $this
 		 */
 		public function setTemplateFile($file, array $parameters = [])
 		{
@@ -89,7 +89,7 @@
 		/**
 		 * @param  int|NULL $itemsOnPage
 		 * @param  bool|int[] $changeable
-		 * @return self
+		 * @return $this
 		 */
 		public function setItemsOnPage($itemsOnPage = NULL, $changeable = FALSE)
 		{
@@ -122,7 +122,7 @@
 
 		/**
 		 * @param  array<string, string> $sorts  [column => (string) ASC|DESC]
-		 * @return self
+		 * @return $this
 		 */
 		public function setDefaultSort(array $sorts)
 		{
@@ -145,7 +145,7 @@
 
 
 		/**
-		 * @return self
+		 * @return $this
 		 */
 		public function setRowAttributes(callable $callback)
 		{
