@@ -43,7 +43,7 @@
 				</th>
 
 				{foreach $columns as $column}
-					{var $columnAttrs = $column->getAttributes([class => ['table__cell', 'table__cell--header']])}
+					{var $columnAttrs = $column->getAttributes(['class' => ['table__cell', 'table__cell--header']])}
 					<th n:attr="$columnAttrs">
 						{if $column->isSortable()}
 							{var $sort = $column->getSort()}
@@ -87,11 +87,11 @@
 	</table>
 </form>
 
-<div n:if="!$iterations">
+<div n:if="count($rows) === 0">
 	<p>Nenalezeny žádné vyhovující záznamy.</p>
 </div>
 
-{if $iterations}
+{if count($rows) > 0}
 	<div class="datagrid__footer text--muted">
 		<form class="form" n:name="viewOptions" onchange="this.submit()">
 			{if isset($form[perPage])}
