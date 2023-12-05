@@ -34,9 +34,16 @@
 			if (is_array($row)) {
 				throw new \Inteve\DataGrid\InvalidArgumentException(self::class . ' requires only objects, array given.');
 			}
+
 			$class = get_class($row);
 
 			if (!isset($this->dataSources[$class])) {
+				foreach ($this->dataSources as $dataSourceClass => $dataSource) {
+					if ($row instanceof $dataSourceClass) {
+						return $dataSource->getRowId($row);
+					}
+				}
+
 				throw new \Inteve\DataGrid\InvalidArgumentException('Unknow row type, there is no data source for it.');
 			}
 
