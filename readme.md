@@ -18,7 +18,7 @@ DataGrid component for Nette.
 composer require inteve/datagrid
 ```
 
-Inteve\Datagrid requires PHP 7.2.0 or later.
+Inteve\Datagrid requires PHP 8.0 or later.
 
 
 ## Usage
