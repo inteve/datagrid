@@ -23,7 +23,7 @@
 		"classmap": ["src/"]
 	},
 	"require-dev": {
-		"nette/tester": "^2.0",
+		"nette/tester": "^2.5",
 		"mbohuslavek/leanmapper-query": "^1.2"
 	},
 	"extra": {
