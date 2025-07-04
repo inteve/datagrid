@@ -13,6 +13,9 @@
 	use Inteve\DataGrid\IFilter;
 
 
+	/**
+	 * @template T of \LeanMapper\Entity
+	 */
 	class LeanMapperQuery implements IDataSource
 	{
 		use \Nette\SmartObject;
@@ -20,13 +23,16 @@
 		const GROUP_BY_AUTO = TRUE;
 		const GROUP_BY_NONE = FALSE;
 
-		/** @var \LeanMapperQuery\Query */
+		/** @var \LeanMapperQuery\Query<T> */
 		private $query;
 
 		/** @var \LeanMapper\IMapper */
 		private $mapper;
 
 
+		/**
+		 * @param \LeanMapperQuery\Query<T> $query
+		 */
 		public function __construct(\LeanMapperQuery\Query $query, \LeanMapper\IMapper $mapper)
 		{
 			$this->query = $query;
@@ -42,7 +48,13 @@
 
 			$table = $this->mapper->getTable(get_class($row));
 			$primaryKey = $this->mapper->getEntityField($table, $this->mapper->getPrimaryKey($table));
-			return $row->{$primaryKey};
+			$rowId = $row->{$primaryKey};
+
+			if (!is_scalar($rowId)) {
+				throw new \Inteve\DataGrid\InvalidStateException("Row ID must be scalar, " . gettype($rowId) . " given.");
+			}
+
+			return $rowId;
 		}
 
 
@@ -68,6 +80,10 @@
 			}
 
 			$count = $query->count();
+
+			if (!is_int($count)) {
+				throw new \Inteve\DataGrid\InvalidStateException("Count must be int, " . gettype($count) . 'given.');
+			}
 
 			// sorting
 			foreach ($sorts as $column) {
@@ -99,11 +115,18 @@
 				$query->limit($paging->getLimit());
 			}
 
-			return new DataSourceResult($query->find(), $count);
+			$rows = $query->find();
+
+			if (!is_array($rows)) {
+				throw new \Inteve\DataGrid\InvalidStateException("Rows must be array, " . gettype($rows) . 'given.');
+			}
+
+			return new DataSourceResult($rows, $count);
 		}
 
 
 		/**
+		 * @param  \LeanMapperQuery\Query<T> $query
 		 * @param  FilterCondition|FilterCondition[] $conditions
 		 * @return void
 		 */

@@ -44,7 +44,7 @@
 
 
 		/**
-		 * @param  callable|NULL $customRender
+		 * @param  callable(array<string, mixed>|object $row):(string|\Nette\Utils\Html)|NULL $customRender
 		 * @return $this
 		 */
 		function setCustomRender($customRender);

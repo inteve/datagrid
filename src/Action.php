@@ -144,7 +144,7 @@
 				return FALSE;
 			}
 
-			return call_user_func($this->disabled, $row);
+			return (bool) call_user_func($this->disabled, $row);
 		}
 
 

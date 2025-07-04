@@ -22,7 +22,7 @@
 		/** @var string */
 		protected $rowField;
 
-		/** @var callable|NULL */
+		/** @var callable(array<string, mixed>|object $row):(string|\Nette\Utils\Html)|NULL  */
 		protected $customRender;
 
 		/** @var callable|NULL */
@@ -117,7 +117,7 @@
 
 
 		/**
-		 * @param  callable|NULL $customRender
+		 * @param  callable(array<string, mixed>|object $row):(string|\Nette\Utils\Html)|NULL $customRender
 		 * @return $this
 		 */
 		public function setCustomRender($customRender)

@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$selected of method Inteve\\DataGrid\\DataProxy\:\:getSelectedRows\(\) expects array\<int\|string\>\|null, array\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DataGrid.php
+
+		-
+			message: '#^Parameter \#1 \$rows of class Inteve\\DataGrid\\DataSourceResult constructor expects array\<array\<string, mixed\>\|object\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DataSources/LeanMapperQuery.php

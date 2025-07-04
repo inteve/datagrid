@@ -27,7 +27,7 @@
 		/** @var string|string[]|NULL */
 		protected $value;
 
-		/** @var int|callable */
+		/** @var IFilter::*|callable(string $rowField, string|string[]|NULL $value):(FilterCondition|FilterCondition[]) */
 		protected $condition = IFilter::EQUAL;
 
 
@@ -119,7 +119,7 @@
 
 
 		/**
-		 * @param  callable|int $condition
+		 * @param  callable(string $rowField, string|string[]|NULL $value):(FilterCondition|FilterCondition[])|IFilter::* $condition
 		 * @return $this
 		 */
 		public function setCondition($condition)

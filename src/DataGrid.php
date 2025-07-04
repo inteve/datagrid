@@ -52,7 +52,7 @@
 		/** @var array<string, string>|NULL */
 		private $defaultSort = [];
 
-		/** @var callable|NULL */
+		/** @var callable(array<string, mixed>|object $row):(array<string, mixed>|NULL)|NULL */
 		private $rowAttributes;
 
 		/** @var string */
@@ -147,6 +147,7 @@
 
 
 		/**
+		 * @param  callable(array<string, mixed>|object $row):(array<string, mixed>|NULL) $callback
 		 * @return $this
 		 */
 		public function setRowAttributes(callable $callback)
@@ -332,7 +333,13 @@
 			$this->filter = [];
 			$this->page = 1;
 
-			foreach ($values->filters as $name => $value) {
+			$filters = $values->filters;
+
+			if (!is_array($filters)) {
+				throw new InvalidStateException("Filters must be iterable, " . gettype($filters) . ' given.');
+			}
+
+			foreach ($filters as $name => $value) {
 				$filter = $this->getFilter($name);
 				$filter->setFormValue($value);
 				$this->filter[(string) $name] = $filter->getValue();
@@ -370,7 +377,7 @@
 			$values = $form->getValues();
 			$this->page = 1;
 
-			if ($this->perPageSteps !== NULL && isset($values->perPage)) {
+			if ($this->perPageSteps !== NULL && isset($values->perPage) && ($values->perPage === NULL || is_int($values->perPage))) {
 				$this->perPage = $values->perPage;
 			}
 
@@ -400,7 +407,7 @@
 		public function processBulkAction(\Nette\Application\UI\Form $form)
 		{
 			$dataProxy = $this->createDataProxy();
-			$actions = $form->getHttpData($form::DATA_LINE | $form::DATA_KEYS, 'action[]');
+			$actions = $form->getHttpData(\Nette\Forms\Form::DATA_LINE | \Nette\Forms\Form::DATA_KEYS, 'action[]');
 
 			if (!is_array($actions)) {
 				throw new InvalidArgumentException("Actions must be array.");
@@ -420,7 +427,7 @@
 				throw new InvalidArgumentException("Missing bulk action.");
 			}
 
-			$values = $form->getHttpData($form::DATA_LINE, 'selected[]');
+			$values = $form->getHttpData(\Nette\Forms\Form::DATA_LINE, 'selected[]');
 
 			if (!is_array($values)) {
 				throw new InvalidArgumentException("Values must be array.");

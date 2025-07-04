@@ -31,7 +31,11 @@
 
 
 		/**
-		 * @param  callable|\Nette\Application\UI\Link $linkFactory
+		 * @param  callable(
+		 *   array<string, mixed>|object $row,
+		 *   string $parameter,
+		 *   scalar $rowId,
+		 * ):(string|\Nette\Application\UI\Link)|\Nette\Application\UI\Link $linkFactory
 		 * @param  string $parameter
 		 * @param  scalar $rowId
 		 * @param  array<string, mixed>|object $row
