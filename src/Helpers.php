@@ -35,7 +35,7 @@
 		 * @param  array<string, mixed>|NULL $defaultAttributes
 		 * @return array<string, mixed>|NULL
 		 */
-		public static function mergeAttributes(array $attributes = NULL, array $defaultAttributes = NULL)
+		public static function mergeAttributes(?array $attributes = NULL, ?array $defaultAttributes = NULL)
 		{
 			if (empty($attributes)) {
 				return $defaultAttributes;

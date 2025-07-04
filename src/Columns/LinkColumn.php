@@ -20,7 +20,7 @@
 		 * @param  callable|NULL $linkFactory
 		 * @param  string|NULL $rowField
 		 */
-		public function __construct($name, $label, callable $linkFactory = NULL, $rowField = NULL)
+		public function __construct($name, $label, ?callable $linkFactory = NULL, $rowField = NULL)
 		{
 			parent::__construct($name, $label, $rowField);
 			$this->linkFactory = $linkFactory;

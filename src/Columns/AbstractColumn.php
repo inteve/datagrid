@@ -131,7 +131,7 @@
 		 * @param  callable|NULL $valueProvider
 		 * @return $this
 		 */
-		public function setValueProvider(callable $valueProvider = NULL)
+		public function setValueProvider(?callable $valueProvider = NULL)
 		{
 			$this->valueProvider = $valueProvider;
 			return $this;
@@ -208,7 +208,7 @@
 		 * @param  array<string, mixed>|NULL $defaultAttributes
 		 * @return array<string, mixed>|NULL
 		 */
-		public function getAttributes(array $defaultAttributes = NULL)
+		public function getAttributes(?array $defaultAttributes = NULL)
 		{
 			$attrs = $this->attributes;
 

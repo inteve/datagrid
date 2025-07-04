@@ -189,7 +189,7 @@
 		 * @param  string|NULL $rowField
 		 * @return Columns\LinkColumn
 		 */
-		public function addLinkColumn($name, $label, callable $link = NULL, $rowField = NULL)
+		public function addLinkColumn($name, $label, ?callable $link = NULL, $rowField = NULL)
 		{
 			return $this->addColumn(new Columns\LinkColumn($name, $label, $link, $rowField));
 		}
@@ -548,7 +548,7 @@
 		 * @param  array<string, mixed>|NULL $defaultAttributes
 		 * @return array<string, mixed>|NULL
 		 */
-		public function getRowAttributes($row, array $defaultAttributes = NULL)
+		public function getRowAttributes($row, ?array $defaultAttributes = NULL)
 		{
 			$attrs = NULL;
 

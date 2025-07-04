@@ -53,7 +53,7 @@
 		/**
 		 * @return $this
 		 */
-		function setValueProvider(callable $customRender = NULL);
+		function setValueProvider(?callable $customRender = NULL);
 
 
 		/**

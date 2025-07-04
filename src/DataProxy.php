@@ -90,7 +90,7 @@
 		 * @param  int $emptySelection
 		 * @return array<array<string, mixed>|object>
 		 */
-		public function getSelectedRows(array $selected = NULL, $emptySelection)
+		public function getSelectedRows(?array $selected, $emptySelection)
 		{
 			if ($selected === NULL) {
 				if ($emptySelection === BulkAction::SELECT_NONE) {
